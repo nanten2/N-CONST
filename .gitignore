@@ -70,6 +70,9 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/_source/
+docs/make.bat
+docs/Makefile
 
 # PyBuilder
 target/
@@ -127,3 +130,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# OS non-necessities
+.DS_Store
+
+# VS-Code
+.vscode/
+*.code-workspace
+
