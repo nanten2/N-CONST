@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "NASCO_tools"
+version = "0.1.0"
+description = ""
+authors = ["KaoruNishikawa <k.nishikawa@a.phys.nagoya-u.ac.jp>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+matplotlib = "^3.3.2"
+astropy = "^4.1"
+numpy = "^1.19.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^20.8b1"
+flake8 = "^3.8.4"
+sphinx = "^3.3.1"
+sphinx-rtd-theme = "^0.5.0"
+m2r2 = "^0.2.7"
+ipykernel = "^5.3.4"
+jupyter = "^1.0.0"
+jupyterlab = "^2.2.9"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
