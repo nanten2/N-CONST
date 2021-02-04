@@ -11,7 +11,7 @@ def obsfile_parser(path):
     content = re.sub(r'\n[^=]*?\n', r'\n\n', content)  # omit non-substitute line
     # get filename
     file_name = os.path.basename(path).split('.')[0]
-    # build and execute module
+    # build and execute the module
     spec = importlib.util.spec_from_loader(file_name, loader=None)
     pymodule = importlib.util.module_from_spec(spec)
     exec(content, pymodule.__dict__)
