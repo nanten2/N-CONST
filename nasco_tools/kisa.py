@@ -13,7 +13,7 @@ import numpy as np
 import toml
 
 
-@dataclass
+@dataclass(frozen=True)
 class Kisa(object):
     """Errors of telescope and its system installation.
 
@@ -55,7 +55,7 @@ class Kisa(object):
     Notes
     -----
     All quantities with [arcsec] are offset or inclination of somewhere
-    in the system. Quantities with [deg] are phase of offsets.
+    in the system. Quantities with [deg] are phases of offsets.
     Quantities with [dimensionless] are coefficients of polynomial
     fitting.
     """
@@ -101,6 +101,11 @@ class Kisa(object):
         return cls(**params["hosei_params"])
 
 
-class OTF_Kisa(Kisa):
+class RadioKisa(Kisa):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class OpticalKisa(Kisa):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
