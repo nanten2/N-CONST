@@ -1,8 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Test
 
-# Controls when the action will run. 
 on:
   push:
     branches: [ main ]
@@ -32,3 +29,4 @@ jobs:
         run: poetry run black --check test nasco_tools
       - name: Test by pytest
         run: poetry run pytest -v test nasco_tools
+
