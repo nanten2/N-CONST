@@ -1,12 +1,8 @@
+import astropy.units as u
+
 from nasco_tools import obsparam
-from importlib.machinery import ModuleSpec
 
 horizontal_obsparams = {
-    "__name__": "horizon",
-    "__doc__": None,
-    "__package__": "",
-    "__loader__": None,
-    "__spec__": ModuleSpec(name="horizon", loader=None),
     "offset_Az": 0,
     "offset_El": 0,
     "lambda_on": 83.80613,
@@ -71,6 +67,74 @@ horizontal_obsparams = {
     "start_ch_2": 0,
     "end_ch_2": 16383,
     "fpga_integtime": 100,
+    "script": "200GHz/line_otf_car_rsky.alp",
+}
+
+horizontal_toml_obsparams = {
+    "offset_Az": 0 * u.deg,
+    "offset_El": 0 * u.deg,
+    "lambda_on": 83.80613 * u.deg,
+    "beta_on": -5.37432 * u.deg,
+    "lambda_off": 82.559 * u.deg,
+    "beta_off": -5.6683 * u.deg,
+    "coordsys": "HORIZONTAL",
+    "Object": "OriKL",
+    "vlsr": 0.0 * u.km / u.s,
+    "tuning_vlsr": 0.0 * u.km / u.s,
+    "cosydel": "HORIZONTAL",
+    "otadel": "N",
+    "start_pos_x": -120.0 * u.arcsec,
+    "start_pos_y": -120.0 * u.arcsec,
+    "scan_direction": "0",
+    "exposure": 0.6 * u.s,
+    "otfvel": 50.0 * u.arcsec / u.s,
+    "otflen": 5.4 * u.s,
+    "grid": 30.0 * u.arcsec,
+    "N": 9,
+    "lamdel_off": 0.0 * u.deg,
+    "betdel_off": 0.0 * u.deg,
+    "otadel_off": "N",
+    "nTest": 1,
+    "datanum": 9,
+    "lamp_pixels": 4,
+    "exposure_off": 10.0 * u.s,
+    "observer": "amigos",
+    "obsmode": "LINEOTF",
+    "purpose": "2",
+    "tsys": 0.0 * u.K,
+    "acc": 10.0 * u.arcsec,
+    "load_interval": 5.0 * u.min,
+    "cold_flag": "N",
+    "pllref_if": 1,
+    "multiple": 12.0,
+    "pllharmonic": "1",
+    "pllsideband": "-1",
+    "pllreffreq": 0.0 * u.MHz,
+    "restfreq_1": 230538.0 * u.MHz,
+    "obsfreq_1": 230538.0 * u.MHz,
+    "molecule_1": "12CO",
+    "transiti_1": "J=2-1",
+    "lo1st_sb_1": "U",
+    "if1st_freq_1": 4438.0 * u.MHz,
+    "lo2nd_sb_1": "L",
+    "lo3rd_sb_1": "L",
+    "lo3rd_freq_1": 4100.0 * u.MHz,
+    "if3rd_freq_1": 500.0 * u.MHz,
+    "start_ch_1": 0,
+    "end_ch_1": 16383,
+    "restfreq_2": 220398.684 * u.MHz,
+    "obsfreq_2": 220398.684 * u.MHz,
+    "molecule_2": "13CO",
+    "transiti_2": "J=2-1",
+    "lo1st_sb_2": "L",
+    "if1st_freq_2": 5701.3 * u.MHz,
+    "lo2nd_sb_2": "L",
+    "lo3rd_sb_2": "L",
+    "lo3rd_freq_2": 4100.0 * u.MHz,
+    "if3rd_freq_2": 500.0 * u.MHz,
+    "start_ch_2": 0,
+    "end_ch_2": 16383,
+    "fpga_integtime": 100.0 * u.ms,
 }
 
 
@@ -78,3 +142,10 @@ def test_parser():
     returned = obsparam.obsfile_parser("test/horizon.obs")
     expected = horizontal_obsparams
     assert returned == expected
+
+
+def test_OTFParams():
+    executed = obsparam.OTFParams.from_file("test/horizon.obs.toml")  # noqa: F841
+    expected = horizontal_toml_obsparams
+    for param, value in expected.items():
+        assert eval(f"executed.{param}") == value
