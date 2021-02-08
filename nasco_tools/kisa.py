@@ -99,7 +99,7 @@ class Kisa(object):
     def from_file(cls, path):
         params = toml.load(f"{os.path.abspath(path)}")
         return cls(**params["hosei_params"])
-    
+
     def __getitem__(self, item):
         return getattr(self, item)
 
