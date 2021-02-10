@@ -1,0 +1,50 @@
+/* コードブロック */
+pre {
+    background: #333;
+}
+cite {
+    background: #FEC;
+}
+
+/* 基本 */
+.highlight .n {
+    color: #EFF;
+}
+/* 括弧 */
+.highlight .p {
+    color: #AEF;
+}
+/* プロンプト */
+.highlight .gp {
+    color: #BCF;
+}
+/* 文字列 */
+.highlight .s2 {
+    color: #FD8;
+}
+.highlight .s1 {
+    color: #FD8;
+}
+/* 演算子 */
+.highlight .o {
+    color: #FF3;
+}
+/* 出力、コメント */
+.highlight .go {
+    color: #AFA;
+}
+/* 特殊構文 */
+.highlight .kn {
+    color: #F9C;
+}
+/* パッケージ */
+.highlight .nn {
+    color: #EFF;
+}
+/* 数字 */
+.highlight .mi {
+    color: #FDF;
+}
+.highlight .mf {
+    color: #FDF;
+}
