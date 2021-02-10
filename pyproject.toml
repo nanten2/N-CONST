@@ -24,7 +24,6 @@ m2r2 = "^0.2"
 ipykernel = "^5.3"
 jupyter = "^1.0"
 jupyterlab = "^2.2"
-twine = "^3.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
