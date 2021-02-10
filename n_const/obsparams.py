@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__all__ = ["obsfile_parser", "OTFParams"]
+
 import re
 import os
 import importlib
@@ -11,6 +13,7 @@ import toml
 
 def obsfile_parser(path):
     """Observation parameters from alpaca style .obs file.
+
     Parameters
     ----------
     path: str
@@ -119,206 +122,84 @@ class OTFParams(ObsParams):
     >>> param.offset_Az
     <Quantity 0. deg>
 
-    Attributes
-    ----------
-    offset_Az: Quantity
-        ??? Horizontal offset.
-    offset_El: Quantity
-        ??? Horizontal offset.
-    lambda_on: Quantity
-        x coordinate of ON position.
-    beta_on: Quantity
-        y coordinate of ON position.
-    lambda_off: Quantity
-        x coordinate of OFF position.
-    beta_off: Quantity
-        y coordinate of OFF position.
-    coordsys: str
-        Coordinate system, ['j2000', 'b1950', 'galactic']
-    Object: str
-        Name of target.
-    vlsr: Quantity
-        Object's velocity relative to LSR frame.
-    tuning_vlsr: Quantity
-        ???
-    cosydel: str
-        Coordinate of map offset, ['j2000', 'b1950', 'galactic', 'hoizontal']
-    otadel: str  # -> bool
-        Correction flag of map offset. [Y/N]
-    start_pos_x: Quantity
-        x start position.
-    start_pos_y: Quantity
-        y start position.
-    scan_direction: str  # -> ?
-        Direction of scan. ['0':x, '1':y]
-    exposure: Quantity
-        Integration time, should be >= 0.04 sec.
-    otfvel: Quantity
-        Angular velocity of OTF scan.
-    otflen: Quantity
-        ??? needed?
-    grid: Quantity
-        ??? resolution?
-    N: int
-        Number of scan lines.
-    lamdel_off: Quantity
-        x coordinate of OFF point offset.
-    betdel_off: Quantity
-        y coordinate of OFF point offset.
-    otadel_off: str  # -> bool
-        Correction flag of OFF point offset. [Y/N]
-    nTest: int
-        Number of observation sequence.
-    datanum: int
-        Number of data.
-    lamp_pixels: int
-        Number of pixels used as run-up ramp.
-    exposure_off: Quantity
-        Exposure on OFF point.
-    observer: str
-        Name of observer.
-    obsmode: str
-        Observation mode. ['LINEPSSW', 'LINEOTF', ...]
-    purpose: str  # appropreate?
-        Observation purpose. ['0':normal, '1':pointing, '2':calibration]
-    tsys: Quantity
-        System noise temperature.
-    acc: Quantity
-        Tracking accuracy.
-    load_interval: Quantity
-        Load measurement interval.
-    cold_flag: str  # -> bool?
-        Cold load measurement flag.
-    pllref_if: int  # str?
-        ??? Phase lock loop. ['1':IF1, '2':IF2]
-    multiple: Quantity
-        Factor of frequency multiplier.
-    pllharmonic: str  # ?
-        ??? Factor of frequency multiplier for PLL.
-    pllsideband: str  # appropreate?
-        PLL sideband. ['1', '-1']
-    pllreffreq: Quantity
-        PLL reference frequency.
-    restfreq_1: Quantity
-        Rest frequency.
-    obsfreq_1: Quantity
-        ??? Observed frequency.
-    molecule_1: Quantity
-        ??? Identify target molecule.
-    transiti_1: str
-        ??? Identify target transition.
-    lo1st_sb_1: str
-        Sideband considering 1st LO.
-    if1st_freq_1: Quantity
-        IF frequency after conversion by 1st LO.
-    lo2nd_sb_1: str
-        Sideband considering 2nd LO.
-    lo3rd_sb_1: str
-        ???
-    lo3rd_freq_1: Quantity
-        ???
-    if3rd_freq_1: Quantity
-        ???
-    start_ch_1: int
-        Start channel of spectrometer. <0-based>
-    end_ch_1: int
-        End channel of spectrometer. <0-based>
-    restfreq_2: Quantity
-        Rest frequency.
-    obsfreq_2: Quantity
-        ??? Observed frequency.
-    molecule_2: str
-        ??? Identify target molecule.
-    transiti_2: str
-        ??? Identify target transition.
-    lo1st_sb_2: str
-        Sideband considering 1st LO.
-    if1st_freq_2: Quantity
-        IF frequency after conversion by 1st LO.
-    lo2nd_sb_2: str
-        Sideband considering 2nd LO.
-    lo3rd_sb_2: str
-        ???
-    lo3rd_freq_2: Quantity
-        ???
-    if3rd_freq_2: Quantity
-        ???
-    start_ch_2: int
-        Start channel of spectrometer. <0-based>
-    end_ch_2: int
-        End channel of spectrometer. <0-based>
-    fpga_integtime: Quantity
-        FPGA integration time.
-
     Notes
     -----
     This class cannot be instantiated directly. Use `from_file(path)`.
+    [Name change] object -> target\n
+    [should reconsider type] scan_direction\n
+    [should reconsider type] purpose\n
+    [should reconsider type] pllref_if\n
+    [should reconsider type] pllharmonic\n
+    [should reconsider type] pllsideband\n
+    [should change type] otadel: str -> bool\n
+    [should change type] otadel_off: str -> bool\n
+    [should change type] cold_flag: str -> bool
     """
 
-    offset_Az: Quantity
-    offset_El: Quantity
-    lambda_on: Quantity
-    beta_on: Quantity
-    lambda_off: Quantity
-    beta_off: Quantity
-    coordsys: str
-    Object: str  # change to capital because of name conflict
-    vlsr: Quantity
-    tuning_vlsr: Quantity
-    cosydel: str
-    otadel: str  # -> bool
-    start_pos_x: Quantity
-    start_pos_y: Quantity
-    scan_direction: str  # -> ?
-    exposure: Quantity
-    otfvel: Quantity
-    otflen: Quantity
-    grid: Quantity
-    N: int
-    lamdel_off: Quantity
-    betdel_off: Quantity
-    otadel_off: str  # -> bool
-    nTest: int
-    datanum: int
-    lamp_pixels: int
-    exposure_off: Quantity
-    observer: str
-    obsmode: str
-    purpose: str  # appropreate?
-    tsys: Quantity
-    acc: Quantity
-    load_interval: Quantity
-    cold_flag: str  # -> bool?
-    pllref_if: int  # str?
-    multiple: Quantity
-    pllharmonic: str  # ?
-    pllsideband: str  # appropreate?
-    pllreffreq: Quantity
-    restfreq_1: Quantity
-    obsfreq_1: Quantity
-    molecule_1: Quantity
-    transiti_1: str
-    lo1st_sb_1: str
-    if1st_freq_1: Quantity
-    lo2nd_sb_1: str
-    lo3rd_sb_1: str
-    lo3rd_freq_1: Quantity
-    if3rd_freq_1: Quantity
-    start_ch_1: int
-    end_ch_1: int
-    restfreq_2: Quantity
-    obsfreq_2: Quantity
-    molecule_2: str
-    transiti_2: str
-    lo1st_sb_2: str
-    if1st_freq_2: Quantity
-    lo2nd_sb_2: str
-    lo3rd_sb_2: str
-    lo3rd_freq_2: Quantity
-    if3rd_freq_2: Quantity
-    start_ch_2: int
-    end_ch_2: int
-    fpga_integtime: Quantity
+    offset_Az: Quantity  #: ??? Horizontal offset.
+    offset_El: Quantity  #: ??? Horizontal offset.
+    lambda_on: Quantity  #: x coordinate of ON position.
+    beta_on: Quantity  #: y coordinate of ON position.
+    lambda_off: Quantity  #: x coordinate of OFF position.
+    beta_off: Quantity  #: y coordinate of OFF position.
+    coordsys: str  #: Coordinate system, ['j2000', 'b1950', 'galactic']
+    target: str  #: Name of target.
+    vlsr: Quantity  #: Object's velocity relative to LSR frame.
+    tuning_vlsr: Quantity  #: ???
+    cosydel: str  #: Coordinate of map offset, [coordsys, 'horizontal']
+    otadel: str  #: Correction flag of map offset. [Y/N]
+    start_pos_x: Quantity  #: x start position.
+    start_pos_y: Quantity  #: y start position.
+    scan_direction: str  #: Direction of scan. ['0';x, '1';y]
+    exposure: Quantity  #: Integration time, should be >= 0.04 sec.
+    otfvel: Quantity  #: Angular velocity of OTF scan.
+    otflen: Quantity  #: ??? needed?
+    grid: Quantity  #: ??? resolution?
+    N: int  #: Number of scan lines.
+    lamdel_off: Quantity  #: x coordinate of OFF point offset.
+    betdel_off: Quantity  #: y coordinate of OFF point offset.
+    otadel_off: str  #: Correction flag of OFF point offset. [Y/N]
+    nTest: int  #: Number of observation sequence.
+    datanum: int  #: Number of data.
+    lamp_pixels: int  #: Number of pixels used as run-up ramp.
+    exposure_off: Quantity  #: Exposure on OFF point.
+    observer: str  #: Name of observer.
+    obsmode: str  #: Observation mode. ['LINEPSSW', 'LINEOTF', ...]
+    purpose: str  #: Purpose of observation. ['0';normal, '1';pointing, '2';calibration]
+    tsys: Quantity  #: System noise temperature.
+    acc: Quantity  #: Tracking accuracy.
+    load_interval: Quantity  #: Load measurement interval.
+    cold_flag: str  #: Cold load measurement flag.
+    pllref_if: int  #: ??? Phase lock loop. ['1';IF1, '2'IF2]
+    multiple: Quantity  #: Factor of frequency multiplier.
+    pllharmonic: str  #: ??? Factor of frequency multiplier for PLL.
+    pllsideband: str  #: PLL sideband. ['1', '-1']
+    pllreffreq: Quantity  #: PLL reference frequency.
+    restfreq_1: Quantity  #: Rest frequency.
+    obsfreq_1: Quantity  #: ??? Observed frequency.
+    molecule_1: Quantity  #: ??? Identify target molecule.
+    transiti_1: str  #: ??? Identify target transition.
+    lo1st_sb_1: str  #: Sideband considering 1st LO.
+    if1st_freq_1: Quantity  #: IF frequency after conversion by 1st LO.
+    lo2nd_sb_1: str  #: Sideband considering 2nd LO.
+    lo3rd_sb_1: str  #: ???
+    lo3rd_freq_1: Quantity  #: ???
+    if3rd_freq_1: Quantity  #: ???
+    start_ch_1: int  #: Start channel of spectrometer. <0-based>
+    end_ch_1: int  #: End channel of spectrometer. <0-based>
+    restfreq_2: Quantity  #: Rest frequency.
+    obsfreq_2: Quantity  #: ??? Observed frequency.
+    molecule_2: str  #: ??? Identify target molecule.
+    transiti_2: str  #: ??? Identify target transition.
+    lo1st_sb_2: str  #: Sideband considering 1st LO.
+    if1st_freq_2: Quantity  #: IF frequency after conversion by 1st LO.
+    lo2nd_sb_2: str  #: Sideband considering 2nd LO.
+    lo3rd_sb_2: str  #: ???
+    lo3rd_freq_2: Quantity  #: ???
+    if3rd_freq_2: Quantity  #: ???
+    start_ch_2: int  #: Start channel of spectrometer. <0-based>
+    end_ch_2: int  #: End channel of spectrometer. <0-based>
+    fpga_integtime: Quantity  #: FPGA integration time.
 
 
 if __name__ == "__main__":
