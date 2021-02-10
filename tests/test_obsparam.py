@@ -139,13 +139,13 @@ horizontal_toml_obsparams = {
 
 
 def test_parser():
-    returned = obsparams.obsfile_parser("test/horizon.obs")
+    returned = obsparams.obsfile_parser("tests/horizon.obs")
     expected = horizontal_obsparams
     assert returned == expected
 
 
 def test_OTFParams():
-    executed = obsparams.OTFParams.from_file("test/horizon.obs.toml")  # noqa: F841
+    executed = obsparams.OTFParams.from_file("tests/horizon.obs.toml")  # noqa: F841
     expected = horizontal_toml_obsparams
     for param, value in expected.items():
         assert eval(f"executed.{param}") == value
