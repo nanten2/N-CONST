@@ -23,7 +23,7 @@ def obsfile_parser(path):
     >>> obsfile_parser('test/horizon.obs')  # doctest: +NORMALIZE_WHITESPACE
     {'offset_Az': 0, 'offset_El': 0, 'lambda_on': 83.80613,\
     'beta_on': -5.37432, 'lambda_off': 82.559, 'beta_off': -5.6683,\
-    'coordsys': 'HORIZONTAL', 'object': 'OriKL', 'vlsr': 0.0,\
+    'coordsys': 'HORIZONTAL', 'target': 'OriKL', 'vlsr': 0.0,\
     'tuning_vlsr': 0.0, 'cosydel': 'HORIZONTAL', 'otadel': 'N',\
     'start_pos_x': -120.0, 'start_pos_y': -120.0, 'scan_direction': 0,\
     'exposure': 0.6, 'otfvel': 50.0, 'otflen': 5.3999999999999995,\
