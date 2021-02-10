@@ -1,4 +1,4 @@
-from nasco_tools import constants
+from n_const import constants
 
 
 def test_constants():

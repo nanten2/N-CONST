@@ -1,6 +1,6 @@
 import astropy.units as u
 
-from nasco_tools import kisa
+from n_const import kisa
 
 kisa_expected = {
     "dAz": 5314.2466754691195 * u.arcsec,
@@ -31,7 +31,7 @@ kisa_expected = {
 
 
 def test_RadioKisa():
-    executed = kisa.RadioKisa.from_file("test/hosei_230.toml")  # noqa: F841
+    executed = kisa.RadioKisa.from_file("tests/hosei_230.toml")  # noqa: F841
     expected = kisa_expected
     for param, value in expected.items():
         assert eval(f"executed.{param}") == value
