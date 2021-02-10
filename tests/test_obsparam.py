@@ -10,7 +10,7 @@ horizontal_obsparams = {
     "lambda_off": 82.559,
     "beta_off": -5.6683,
     "coordsys": "HORIZONTAL",
-    "target": "OriKL",
+    "object": "OriKL",
     "vlsr": 0.0,
     "tuning_vlsr": 0.0,
     "cosydel": "HORIZONTAL",
