@@ -24,9 +24,9 @@ jobs:
           pip3 install poetry
           poetry install
       - name: Lint by Flake8 
-        run: poetry run flake8 test nasco_tools
+        run: poetry run flake8 tests n_const
       - name: Format by Black
-        run: poetry run black --check test nasco_tools
+        run: poetry run black --check tests n_const
       - name: Test by pytest
-        run: poetry run pytest -v test nasco_tools
+        run: poetry run pytest -v tests n_const
 
