@@ -43,6 +43,17 @@ EarthLocation(2230866.39573496, -5440247.68222275, -2475554.41874542) m
 32768
 ```
 
+You now can get all the parameters packed in the `Constants` using `dict` method:
+
+```python
+>>> n2const.TOPIC2BEAM.keys()
+dict_keys(['ac240_tp_data_1', 'ac240_tp_data_2', 'ac240_tp_data_3', ..., 'xffts_board16'])
+>>> n2const.REST_FREQ.values()
+dict_values([<Quantity 115.27 GHz>, <Quantity 110.20 GHz>, ..., <Quantity 219.56 GHz>])
+>>> n2const.XFFTS.items()
+dict_items([('ch_num', 32768), ('bandwidth', <Quantity 2. GHz>)])
+```
+
 ### Parameters
 
 *Kisa* parameter (parameters to correct pointing error) and observation parameters are extracted via `kisa` and `obsparam` modules respectively.
@@ -66,10 +77,10 @@ To get the observation parameters:
 ```python
 >>> from n_const import obsparams
 >>> params = obsparams.OTFParams.from_file("path/to/obsfile")
->>> params.offset_Az
-Quantity 0. deg
->>> params['offset_Az']
-Quantity 0. deg
+>>> params.Beta_on
+<Angle 15.51638889 deg>
+>>> params['Beta_on']
+<Angle 15.51638889 deg>
 ```
 
 For conventional style obsfiles, this module provides a parser. This is a conventional one, so it provides very limited functionality;
