@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
-__all__ = ["obsfile_parser", "OTFParams"]
+__all__ = ["obsfile_parser"]
 
 import re
 import os
+import copy
 import importlib
 from dataclasses import dataclass
 
 from astropy.units.quantity import Quantity
+from astropy.coordinates import Angle
 import toml
 
 
@@ -60,7 +62,7 @@ def obsfile_parser(path):
 
 
 @dataclass(frozen=True)
-class ObsParams(object):
+class ObsParams:
     """Metaclass for obsparam dataclasses.
 
     Notes
@@ -72,9 +74,7 @@ class ObsParams(object):
         """Make Quantity.
         Parameters given as toml-array are converted into ``Quantity`` objects.
         """
-        for name, attr in self.__dict__.items():
-            if isinstance(attr, list):
-                self.__dict__[name] = Quantity(" ".join(attr))
+        self.make_quantity()
         return
 
     @classmethod
@@ -87,119 +87,43 @@ class ObsParams(object):
 
         Notes
         -----
-        Non-standard parameters will also parsed.
+        All parameters declared in the toml file will be parsed. Table
+        name of the toml file will be ignored.
         """
-        params = toml.load(f"{os.path.abspath(path)}")
-        mode = list(params.keys())[0]
-        # if parameters in toml file is strictly limited, following 6 lines can
-        # be omitted, and the following would be `inst = cls(**params[mode])`
-        declared, notdeclared = {}, {}
-        for param, value in params[mode].items():
-            if param not in cls.__annotations__.keys():
-                notdeclared[param] = value
-            else:
-                declared[param] = value
-        inst = cls(**declared)
-        object.__setattr__(inst, "mode", mode)
-        # following 3 lines will also be omitted
-        for param, value in notdeclared.items():
-            object.__setattr__(inst, param, value)
-        # to convert not-declared parameters to Quantity obj
-        inst.__post_init__()  # not efficient way though,,,
+        inst = cls()
+        params = toml.load(path)
+        for param_group in params.values():
+            for param_name, param in param_group.items():
+                object.__setattr__(inst, param_name, param)
+        inst.make_quantity()
         return inst
+
+    def make_quantity(self):
+        params_dict = copy.deepcopy(self.__dict__)
+        for name, value in params_dict.items():
+            if not name.islower():
+                self.__dict__[name] = Angle(value)
+            elif not name.startswith("_"):
+                self.__dict__[name] = Quantity(value)
+            else:
+                self.__dict__[name[1:]] = value
+                self.__dict__.pop(name)
+        return
 
     def __getitem__(self, item):
         return getattr(self, item)
 
+    def __repr__(self):
+        return f"ObsParams({repr(self.__dict__)})"
 
-@dataclass(frozen=True)
-class OTFParams(ObsParams):
-    """Parameters for OTF observation.
+    def keys(self):
+        return self.__dict__.keys()
 
-    Examples
-    --------
-    >>> param = OTFParams.from_file('test/horizon.obs.toml')
-    >>> param.offset_Az
-    <Quantity 0. deg>
+    def values(self):
+        return self.__dict__.values()
 
-    Notes
-    -----
-    This class cannot be instantiated directly. Use ``from_file(path)``.
-    [Name change] object -> target\n
-    [should reconsider type] scan_direction\n
-    [should reconsider type] purpose\n
-    [should reconsider type] pllref_if\n
-    [should reconsider type] pllharmonic\n
-    [should reconsider type] pllsideband\n
-    [should change type] otadel: str -> bool\n
-    [should change type] otadel_off: str -> bool\n
-    [should change type] cold_flag: str -> bool
-    """
-
-    offset_Az: Quantity  #: ??? Horizontal offset.
-    offset_El: Quantity  #: ??? Horizontal offset.
-    lambda_on: Quantity  #: x coordinate of ON position.
-    beta_on: Quantity  #: y coordinate of ON position.
-    lambda_off: Quantity  #: x coordinate of OFF position.
-    beta_off: Quantity  #: y coordinate of OFF position.
-    coordsys: str  #: Coordinate system, ['j2000', 'b1950', 'galactic']
-    target: str  #: Name of target.
-    vlsr: Quantity  #: Object's velocity relative to LSR frame.
-    tuning_vlsr: Quantity  #: ???
-    cosydel: str  #: Coordinate of map offset, [coordsys, 'horizontal']
-    otadel: str  #: Correction flag of map offset. [Y/N]
-    start_pos_x: Quantity  #: x start position.
-    start_pos_y: Quantity  #: y start position.
-    scan_direction: str  #: Direction of scan. ['0';x, '1';y]
-    exposure: Quantity  #: Integration time, should be >= 0.04 sec.
-    otfvel: Quantity  #: Angular velocity of OTF scan.
-    otflen: Quantity  #: ??? needed?
-    grid: Quantity  #: ??? resolution?
-    N: int  #: Number of scan lines.
-    lamdel_off: Quantity  #: x coordinate of OFF point offset.
-    betdel_off: Quantity  #: y coordinate of OFF point offset.
-    otadel_off: str  #: Correction flag of OFF point offset. [Y/N]
-    nTest: int  #: Number of observation sequence.
-    datanum: int  #: Number of data.
-    lamp_pixels: int  #: Number of pixels used as run-up ramp.
-    exposure_off: Quantity  #: Exposure on OFF point.
-    observer: str  #: Name of observer.
-    obsmode: str  #: Observation mode. ['LINEPSSW', 'LINEOTF', ...]
-    purpose: str  #: Purpose of observation. ['0';normal, '1';pointing, '2';calibration]
-    tsys: Quantity  #: System noise temperature.
-    acc: Quantity  #: Tracking accuracy.
-    load_interval: Quantity  #: Load measurement interval.
-    cold_flag: str  #: Cold load measurement flag.
-    pllref_if: int  #: ??? Phase lock loop. ['1';IF1, '2'IF2]
-    multiple: Quantity  #: Factor of frequency multiplier.
-    pllharmonic: str  #: ??? Factor of frequency multiplier for PLL.
-    pllsideband: str  #: PLL sideband. ['1', '-1']
-    pllreffreq: Quantity  #: PLL reference frequency.
-    restfreq_1: Quantity  #: Rest frequency.
-    obsfreq_1: Quantity  #: ??? Observed frequency.
-    molecule_1: Quantity  #: ??? Identify target molecule.
-    transiti_1: str  #: ??? Identify target transition.
-    lo1st_sb_1: str  #: Sideband considering 1st LO.
-    if1st_freq_1: Quantity  #: IF frequency after conversion by 1st LO.
-    lo2nd_sb_1: str  #: Sideband considering 2nd LO.
-    lo3rd_sb_1: str  #: ???
-    lo3rd_freq_1: Quantity  #: ???
-    if3rd_freq_1: Quantity  #: ???
-    start_ch_1: int  #: Start channel of spectrometer. <0-based>
-    end_ch_1: int  #: End channel of spectrometer. <0-based>
-    restfreq_2: Quantity  #: Rest frequency.
-    obsfreq_2: Quantity  #: ??? Observed frequency.
-    molecule_2: str  #: ??? Identify target molecule.
-    transiti_2: str  #: ??? Identify target transition.
-    lo1st_sb_2: str  #: Sideband considering 1st LO.
-    if1st_freq_2: Quantity  #: IF frequency after conversion by 1st LO.
-    lo2nd_sb_2: str  #: Sideband considering 2nd LO.
-    lo3rd_sb_2: str  #: ???
-    lo3rd_freq_2: Quantity  #: ???
-    if3rd_freq_2: Quantity  #: ???
-    start_ch_2: int  #: Start channel of spectrometer. <0-based>
-    end_ch_2: int  #: End channel of spectrometer. <0-based>
-    fpga_integtime: Quantity  #: FPGA integration time.
+    def items(self):
+        return self.__dict__.items()
 
 
 if __name__ == "__main__":
