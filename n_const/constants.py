@@ -26,6 +26,7 @@ __all__ = [
 ]
 
 from dataclasses import dataclass
+import csv
 
 from astropy.coordinates import EarthLocation
 import astropy.units as u
@@ -94,6 +95,15 @@ XFFTS = Constants.set_values(
 AC240 = Constants.set_values(
     ch_num=16384, bandwidth=1 * u.GHz
 )  #: Parameters about AC240 spectrometer.
+
+# Board/topic configuration
+topic_map = {}
+with open("config/board_config.csv", newline="") as f:
+    contents = csv.DictReader(f)
+    fields = contents.fieldnames
+    for row in contents:
+        topic_map[row[fields[0]]] = Constants.set_values(**row)
+TOPIC2BEAM = Constants.set_values(**topic_map)
 
 # Rest frequency
 REST_FREQ = Constants.set_values(
