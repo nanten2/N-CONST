@@ -5,7 +5,7 @@ This module provides static constants of NANTEN2/NASCO system.
 
 Notes
 -----
-This module provide some `Constant` objects. See below for the way to
+This module provide some ``Constants`` objects. See below for the way to
 extract constants from the object.
 
 Examples
@@ -63,12 +63,21 @@ class Constants:
         return inst
 
     def __repr__(self):
-        # To show contents.
-        return f"Constant({repr(self.__dict__)})"
+        """Show contents."""
+        return f"Constants({repr(self.__dict__)})"
 
     def __getitem__(self, item):
-        # To provide key access to parameters.
+        """Provide key access to parameters."""
         return getattr(self, item)
+
+    def keys(self):
+        return self.__dict__.keys()
+
+    def values(self):
+        return self.__dict__.values()
+
+    def items(self):
+        return self.__dict__.items()
 
 
 # Location
