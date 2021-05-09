@@ -2,7 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/n-const.svg?label=PyPI&style=flat-square)](https://pypi.org/pypi/n-const/)
 [![Python](https://img.shields.io/pypi/pyversions/n-const.svg?label=Python&color=yellow&style=flat-square)](https://pypi.org/pypi/n-const/)
-[![Test](https://img.shields.io/github/workflow/status/nanten2/NASCO-tools/Test?logo=github&label=Test&style=flat-square)](https://github.com/nanten2/NASCO-tools/actions)
+[![Test](https://img.shields.io/github/workflow/status/nanten2/N-const/Test?logo=github&label=Test&style=flat-square)](https://github.com/nanten2/NASCO-tools/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?label=License&style=flat-square)](LICENSE)
 
 NANTEN2/NASCO Constants and ObservatioN Specification Translator.
@@ -45,9 +45,9 @@ EarthLocation(2230866.39573496, -5440247.68222275, -2475554.41874542) m
 
 ### Parameters
 
-*Kisa* parameter (parameters to correct instrumental error) and observation parameters are formatted using `kisa` and `obsparam` modules respectively.
+*Kisa* parameter (parameters to correct pointing error) and observation parameters are extracted via `kisa` and `obsparam` modules respectively.
 
-To get the formatted *kisa* parameters:
+To get the *kisa* parameters:
 
 ```python
 >>> from n_const import kisa
@@ -55,13 +55,13 @@ To get the formatted *kisa* parameters:
 >>> params.dAz
 Quantity 5314.24667547 arcsec
 
-# This module also support keys to access the components:
+# This module also supports keys to access the components:
 
 >>> params['dAz']
 Quantity 5314.24667547 arcsec
 ```
 
-To get the formatted observation parameters:
+To get the observation parameters:
 
 ```python
 >>> from n_const import obsparams
@@ -85,4 +85,4 @@ For conventional style obsfiles, this module provides a parser. This is a conven
 
 ---
 
-- This library uses [Semantic Versioning](https://semver.org).
+- This library is using [Semantic Versioning](https://semver.org).
