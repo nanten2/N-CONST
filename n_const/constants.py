@@ -22,6 +22,7 @@ __all__ = [
     "LOC_NANTEN2",
     "XFFTS",
     "AC240",
+    "TOPIC2BEAM",
     "REST_FREQ",
 ]
 
