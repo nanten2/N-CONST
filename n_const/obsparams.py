@@ -70,7 +70,7 @@ class ObsParams(object):
 
     def __post_init__(self):
         """Make Quantity.
-        Parameters given as toml-array are converted into `Quantity` objects.
+        Parameters given as toml-array are converted into ``Quantity`` objects.
         """
         for name, attr in self.__dict__.items():
             if isinstance(attr, list):
@@ -124,7 +124,7 @@ class OTFParams(ObsParams):
 
     Notes
     -----
-    This class cannot be instantiated directly. Use `from_file(path)`.
+    This class cannot be instantiated directly. Use ``from_file(path)``.
     [Name change] object -> target\n
     [should reconsider type] scan_direction\n
     [should reconsider type] purpose\n
