@@ -22,11 +22,12 @@ __all__ = [
     "LOC_NANTEN2",
     "XFFTS",
     "AC240",
-    "TOPIC2BEAM",
     "REST_FREQ",
 ]
 
 from dataclasses import dataclass
+from pathlib import Path
+from os import PathLike
 import csv
 
 from astropy.coordinates import EarthLocation
@@ -64,11 +65,43 @@ class Constants:
             object.__setattr__(inst, k, v)
         return inst
 
+    @classmethod
+    def from_csv(cls, path: PathLike):
+        """Read CSV file and create Constants.
+        User defined constants. Intended to be used in __init__.py of the packages that
+        depends on this package.
+
+        Parameters
+        ----------
+        name: str
+            The name of the Constants instance.
+        path: PathLike
+            Path to the CSV file.
+
+        Notes
+        -----
+        The CSV file is expected to have the following structure;
+        ```
+        column_name1,column_name2,column_name3 ...
+        row_name1,value2-1,value3-1 ...
+        row_name2,value2-2,value3-2 ...
+        ```
+        Note that column 1 is identical to the row labels.
+
+        """
+        with Path(path).open("r", newline="") as f:
+            contents = csv.DictReader(f)
+            fields = contents.fieldnames
+            contents_dict = {}
+            for row in contents:
+                contents_dict[row[fields[0]]] = cls.set_values(**row)
+        return cls.set_values(**contents_dict)
+
     def __repr__(self):
         """Show contents."""
         return f"Constants({repr(self.__dict__)})"
 
-    def __getitem__(self, item):
+    def __getitem__(self, item: str):
         """Provide key access to parameters."""
         return getattr(self, item)
 
@@ -96,15 +129,6 @@ XFFTS = Constants.set_values(
 AC240 = Constants.set_values(
     ch_num=16384, bandwidth=1 * u.GHz
 )  #: Parameters about AC240 spectrometer.
-
-# Board/topic configuration
-topic_map = {}
-with open("config/board_config.csv", newline="") as f:
-    contents = csv.DictReader(f)
-    fields = contents.fieldnames
-    for row in contents:
-        topic_map[row[fields[0]]] = Constants.set_values(**row)
-TOPIC2BEAM = Constants.set_values(**topic_map)
 
 # Rest frequency
 REST_FREQ = Constants.set_values(
