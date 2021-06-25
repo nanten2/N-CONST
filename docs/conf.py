@@ -1,8 +1,13 @@
 import os
+import re
 import sys
+import ast
 
 sys.path.insert(0, os.path.abspath("../n_const"))
 
+with open(os.path.abspath("../pyproject.toml")) as f:
+    match = re.search(r"version\s+=\s+(.*)", f.read())
+version = str(ast.literal_eval(match.group(1)))
 
 # -- Project information -----------------------------------------------------
 
@@ -11,7 +16,7 @@ copyright = "2021, NANTEN2 software team"
 author = "NANTEN2 software team"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.0"
+release = version
 
 # -- General configuration ---------------------------------------------------
 

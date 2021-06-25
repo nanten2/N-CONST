@@ -1,5 +1,9 @@
 # flake8: noqa
-__version__ = "0.3.1"
+
+import pkg_resources
+
+
+__version__ = pkg_resources.get_distribution("n_const").version
 
 from . import constants
 from . import kisa
