@@ -5,6 +5,7 @@ __all__ = ["Kisa", "RadioKisa"]
 
 from dataclasses import dataclass
 from pathlib import Path
+import os
 
 try:
     from typing_extensions import Annotated
@@ -16,7 +17,7 @@ from tomlkit.toml_file import TOMLFile
 
 
 @dataclass(frozen=True)
-class Kisa(object):
+class Kisa:
     """Errors of telescope and its system installation.
 
     Notes
@@ -40,16 +41,16 @@ class Kisa(object):
     omega2_El: Annotated[float, u.deg] = None  #: Phase of 180 deg periodic error.
     g: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Optical gravitational diflection.
+    ] = None  #: Optical gravitational deflection.
     gg: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Optical gravitational diflection.
+    ] = None  #: Optical gravitational deflection.
     ggg: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Optical gravitational diflection.
+    ] = None  #: Optical gravitational deflection.
     gggg: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Optical gravitational diflection.
+    ] = None  #: Optical gravitational deflection.
     dEl: Annotated[float, u.arcsec] = None  #: Offset of encoder reading.
     de_radio: Annotated[float, u.arcsec] = None  #: Az offset.
     dEl_radio: Annotated[float, u.arcsec] = None
@@ -57,16 +58,16 @@ class Kisa(object):
     cor_p: Annotated[float, u.deg] = None  #: Phase of collimation error.
     g_radio: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Radio gravitational diflection.
+    ] = None  #: Radio gravitational deflection.
     gg_radio: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Radio gravitational diflection.
+    ] = None  #: Radio gravitational deflection.
     ggg_radio: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Radio gravitational diflection.
+    ] = None  #: Radio gravitational deflection.
     gggg_radio: Annotated[
         float, u.dimensionless_unscaled
-    ] = None  #: Radio gravitational diflection.
+    ] = None  #: Radio gravitational deflection.
 
     def __post_init__(self):
         for (name, field_type) in self.__annotations__.items():
@@ -77,7 +78,7 @@ class Kisa(object):
         return
 
     @classmethod
-    def from_file(cls, path):
+    def from_file(cls, path: os.PathLike):
         """Parse toml file.
 
         Parameters
@@ -89,6 +90,18 @@ class Kisa(object):
 
     def __getitem__(self, item):
         return getattr(self, item)
+
+    def __repr__(self):
+        return f"Kisa({repr(self.__dict__)})"
+
+    def keys(self):
+        return self.__dict__.keys()
+
+    def values(self):
+        return self.__dict__.values()
+
+    def items(self):
+        return self.__dict__.items()
 
 
 class RadioKisa(Kisa):
