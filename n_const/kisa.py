@@ -4,7 +4,7 @@
 __all__ = ["Kisa", "RadioKisa"]
 
 from dataclasses import dataclass
-import os
+from pathlib import Path
 
 try:
     from typing_extensions import Annotated
@@ -12,7 +12,7 @@ except ImportError:
     from typing import Annotated  # For python 3.9
 
 import astropy.units as u
-import toml
+from tomlkit.toml_file import TOMLFile
 
 
 @dataclass(frozen=True)
@@ -84,7 +84,7 @@ class Kisa(object):
         ----------
         path: str
         """
-        params = toml.load(f"{os.path.abspath(path)}")
+        params = TOMLFile(Path(path).absolute()).read()
         return cls(**params["hosei_params"])
 
     def __getitem__(self, item):

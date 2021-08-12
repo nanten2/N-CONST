@@ -8,9 +8,9 @@ import copy
 import importlib
 from dataclasses import dataclass
 
+from tomlkit.toml_file import TOMLFile
 from astropy.units.quantity import Quantity
 from astropy.coordinates import Angle
-import toml
 
 
 def obsfile_parser(path):
@@ -91,7 +91,7 @@ class ObsParams:
         name of the toml file will be ignored.
         """
         inst = cls()
-        params = toml.load(path)
+        params = TOMLFile(path).read()
         for param_group in params.values():
             for param_name, param in param_group.items():
                 object.__setattr__(inst, param_name, param)
