@@ -70,7 +70,7 @@ class ObsParams:
         """Make Quantity.
         Parameters given as toml-array are converted into ``Quantity`` objects.
         """
-        self.make_quantity()
+        self._make_quantity()
 
     @classmethod
     def from_file(cls, path: os.PathLike):
@@ -96,7 +96,9 @@ class ObsParams:
     def _make_quantity(self):
         params_dict = copy.deepcopy(self.__dict__)
         for name, value in params_dict.items():
-            if name.isupper():
+            if not value:
+                pass
+            elif name.isupper():
                 self.__dict__[name] = value
             elif name.islower():
                 self.__dict__[name] = Quantity(value)
