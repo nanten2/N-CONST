@@ -34,5 +34,5 @@ def test_RadioKisa():
     executed = kisa.RadioKisa.from_file("tests/hosei_230.toml")  # noqa: F841
     expected = kisa_expected
     for param, value in expected.items():
-        assert eval(f"executed.{param}") == value
+        assert getattr(executed, param) == value
         assert executed[param] == value

@@ -109,5 +109,5 @@ def test_OTFParams():
     executed = obsparams.ObsParams.from_file("tests/example.obs.toml")  # noqa: F841
     expected = example_toml_obsparams
     for param, value in expected.items():
-        assert eval(f"executed.{param}") == value
+        assert getattr(executed, param) == value
         assert executed[param] == value
