@@ -6,6 +6,7 @@ import re
 import os
 import copy
 import importlib
+from typing import Dict, Any
 from dataclasses import dataclass
 
 from tomlkit.toml_file import TOMLFile
@@ -13,7 +14,7 @@ from astropy.units.quantity import Quantity
 from astropy.coordinates import Angle
 
 
-def obsfile_parser(path):
+def obsfile_parser(path: os.PathLike) -> Dict[str, Any]:
     """Observation parameters from alpaca style .obs file.
 
     Parameters
@@ -63,22 +64,16 @@ def obsfile_parser(path):
 
 @dataclass(frozen=True)
 class ObsParams:
-    """Metaclass for obsparam dataclasses.
-
-    Notes
-    -----
-    This class is meant to be inherited.
-    """
+    """Parse observation parameters."""
 
     def __post_init__(self):
         """Make Quantity.
         Parameters given as toml-array are converted into ``Quantity`` objects.
         """
         self.make_quantity()
-        return
 
     @classmethod
-    def from_file(cls, path):
+    def from_file(cls, path: os.PathLike):
         """Parse toml file.
 
         Parameters
@@ -95,22 +90,21 @@ class ObsParams:
         for param_group in params.values():
             for param_name, param in param_group.items():
                 object.__setattr__(inst, param_name, param)
-        inst.make_quantity()
+        inst._make_quantity()
         return inst
 
-    def make_quantity(self):
+    def _make_quantity(self):
         params_dict = copy.deepcopy(self.__dict__)
         for name, value in params_dict.items():
-            if not name.islower():
-                self.__dict__[name] = Angle(value)
-            elif not name.startswith("_"):
+            if name.isupper():
+                self.__dict__[name] = value
+            elif name.islower():
                 self.__dict__[name] = Quantity(value)
             else:
-                self.__dict__[name[1:]] = value
-                self.__dict__.pop(name)
-        return
+                self.__dict__[name] = Angle(value)
 
     def __getitem__(self, item):
+        """Enable dot notation."""
         return getattr(self, item)
 
     def __repr__(self):
