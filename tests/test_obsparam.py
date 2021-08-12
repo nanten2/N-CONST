@@ -1,4 +1,3 @@
-import astropy.units as u
 from astropy.units import Quantity
 from astropy.coordinates import Angle
 
@@ -73,29 +72,30 @@ horizontal_obsparams = {
 }
 
 example_toml_obsparams = {
-    "scan_direction": "X",
+    "OBSERVER": "amigos",
+    "OBJECT": "OriKL",
+    "MOLECULE_1": "12CO10",
+    "LambdaOn": Angle("3h15m8s"),
+    "BetaOn": Angle("15d30m59s"),
+    "RELATIVE": False,
+    "LambdaOff": Angle("3h50m46s"),
+    "BetaOff": Angle("17d25m9s"),
+    "position_angle": Quantity("30deg"),
+    "OTADEL": True,
+    "StartPositionX": Angle("120arcsec"),
+    "StartPositionY": Angle("120arcsec"),
+    "COORD_SYS": "J2000",
+    "SCAN_DIRECTION": "X",
     "n": Quantity(30),
-    "scan_spacing": 60 * u.arcsec,
-    "otfvel": 600 * u.arcsec / u.s,
-    "otflen": 10 * u.s,
-    "integ_on": 0.1 * u.s,
-    "ramp_pixel": 40,
-    "Lambda_on": Angle("3h15m8s"),
-    "Beta_on": Angle("15d30m59s"),
-    "Lambda_off": Angle("3h50m46s"),
-    "Beta_off": Angle("17d25m9s"),
-    "coordsys": "J2000",
-    "otadel": True,
-    "position_angle": 30 * u.deg,
-    "start_pos_x": 120 * u.arcsec,
-    "start_pos_y": 120 * u.arcsec,
-    "integ_off": 10 * u.s,
-    "integ_hot": 10 * u.s,
+    "scan_spacing": Quantity("60arcsec"),
+    "scan_length": Quantity("10s"),
+    "scan_velocity": Quantity("600arcsec/s"),
+    "ramp_pixel": Quantity(40),
+    "integ_on": Quantity("0.1s"),
+    "integ_off": Quantity("10s"),
+    "integ_hot": Quantity("10s"),
     "off_interval": Quantity(1),
-    "load_interval": 5 * u.min,
-    "molecule_1": "12CO10",
-    "object": "OriKL",
-    "observer": "amigos",
+    "load_interval": Quantity("5min"),
 }
 
 
