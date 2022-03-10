@@ -15,7 +15,7 @@ except:
     __version__ = "0.0.0"  # Fallback.
 
 
-class Constants(SimpleNamespace):
+class DataClass(SimpleNamespace):
     """Storage of constant values.
 
     Parameters
@@ -25,7 +25,7 @@ class Constants(SimpleNamespace):
 
     Examples
     --------
-    >>> param = Constants(a=50, b="abc")
+    >>> param = DataClass(a=50, b="abc")
     >>> param.a
     50
     >>> param["b"]
@@ -41,7 +41,7 @@ class Constants(SimpleNamespace):
         return self.__dict__[name]
 
     def __repr__(self) -> str:
-        return super().__repr__().replace("namespace", "Constants")
+        return super().__repr__().replace("namespace", self.__class__.__name__)
 
     def keys(self) -> KeysView:
         """``dict.keys() interface."""
@@ -57,6 +57,8 @@ class Constants(SimpleNamespace):
 
 
 from .constants import *
+
+from . import constants
 from . import kisa
 from . import obsparams
 

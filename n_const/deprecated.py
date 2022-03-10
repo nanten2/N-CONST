@@ -4,7 +4,7 @@ import os
 import n_const
 
 
-class Constants(n_const.Constants):
+class Constants(n_const.DataClass):
     """Fundamental class to declare arbitrary parameters.
 
     .. deprecated:: 1.0.1

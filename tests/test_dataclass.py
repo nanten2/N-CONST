@@ -1,4 +1,4 @@
-from n_const import Constants
+from n_const import DataClass
 
 
 class TestConstants:
@@ -9,7 +9,7 @@ class TestConstants:
             {"a": "1", "b": 2},
         ]
         for kwargs in test_cases:
-            const = Constants(**kwargs)
+            const = DataClass(**kwargs)
             for k, v in kwargs.items():
                 assert getattr(const, k) == v
 
@@ -20,7 +20,7 @@ class TestConstants:
             {"a": "1", "b": 2},
         ]
         for kwargs in test_cases:
-            const = Constants(**kwargs)
+            const = DataClass(**kwargs)
             for k, v in kwargs.items():
                 assert const[k] == v
 
@@ -31,7 +31,7 @@ class TestConstants:
             {"a": "1", "b": 2},
         ]
         for kwargs in test_cases:
-            assert Constants(**kwargs).keys() == kwargs.keys()
+            assert DataClass(**kwargs).keys() == kwargs.keys()
 
     def test_values(self):
         test_cases = [
@@ -40,7 +40,7 @@ class TestConstants:
             {"a": "1", "b": 2},
         ]
         for kwargs in test_cases:
-            assert list(Constants(**kwargs).values()) == list(kwargs.values())
+            assert list(DataClass(**kwargs).values()) == list(kwargs.values())
 
     def test_items(self):
         test_cases = [
@@ -49,4 +49,4 @@ class TestConstants:
             {"a": "1", "b": 2},
         ]
         for kwargs in test_cases:
-            assert Constants(**kwargs).items() == kwargs.items()
+            assert DataClass(**kwargs).items() == kwargs.items()
