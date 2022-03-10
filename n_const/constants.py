@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Constant parameters used in our telescope systems."""
 
 __all__ = [

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 __all__ = ["obsfile_parser"]
 
 import re
@@ -120,7 +118,3 @@ class ObsParams:
 
     def items(self):
         return self.__dict__.items()
-
-
-if __name__ == "__main__":
-    pass
