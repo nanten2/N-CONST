@@ -1,9 +1,6 @@
 """Deprecated items, kept for compatibility."""
 
-import csv
 import os
-from pathlib import Path
-
 import n_const
 
 
@@ -17,6 +14,7 @@ class Constants(n_const.Constants):
 
     """
 
+    @classmethod
     def set_values(cls, **kwargs):
         """Set arbitrary parameters.
 
@@ -70,10 +68,11 @@ class Constants(n_const.Constants):
         Note that column 1 is identical to the row labels.
 
         """
-        with Path(path).open("r", newline="") as f:
-            contents = csv.DictReader(f)
-            fields = contents.fieldnames
-            contents_dict = {}
-            for row in contents:
-                contents_dict[row[fields[0]]] = cls.set_values(**row)
-        return cls.set_values(**contents_dict)
+        raise NotImplementedError
+        # with Path(path).open("r", newline="") as f:
+        #     contents = csv.DictReader(f)
+        #     fields = contents.fieldnames
+        #     contents_dict = {}
+        #     for row in contents:
+        #         contents_dict[row[fields[0]]] = cls.set_values(**row)
+        # return cls.set_values(**contents_dict)
