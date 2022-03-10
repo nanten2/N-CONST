@@ -1,17 +1,52 @@
-from pathlib import Path
-
-from n_const import constants
+from n_const import Constants
 
 
-def test_constants():
-    params = constants.Constants.set_values(param1=1, param2="a")
-    assert params.param1 == 1
-    assert params["param1"] == 1
-    assert params.param2 == "a"
-    assert params["param2"] == "a"
-    as_dict = {"param1": 1, "param2": "a"}
-    assert params.keys() == as_dict.keys()
-    assert list(params.values()) == list(as_dict.values())
-    assert params.items() == as_dict.items()
-    TOPIC2BEAM = constants.Constants.from_csv(Path("tests/board_config.csv"))
-    assert TOPIC2BEAM.ac240_tp_data_1.beam == "1"
+class TestConstants:
+    def test_getattr(self):
+        test_cases = [
+            {"a": 1},
+            {"a": 1, "b": 2},
+            {"a": "1", "b": 2},
+        ]
+        for kwargs in test_cases:
+            const = Constants(**kwargs)
+            for k, v in kwargs.items():
+                assert getattr(const, k) == v
+
+    def test_getitem(self):
+        test_cases = [
+            {"a": 1},
+            {"a": 1, "b": 2},
+            {"a": "1", "b": 2},
+        ]
+        for kwargs in test_cases:
+            const = Constants(**kwargs)
+            for k, v in kwargs.items():
+                assert const[k] == v
+
+    def test_keys(self):
+        test_cases = [
+            {"a": 1},
+            {"a": 1, "b": 2},
+            {"a": "1", "b": 2},
+        ]
+        for kwargs in test_cases:
+            assert Constants(**kwargs).keys() == kwargs.keys()
+
+    def test_values(self):
+        test_cases = [
+            {"a": 1},
+            {"a": 1, "b": 2},
+            {"a": "1", "b": 2},
+        ]
+        for kwargs in test_cases:
+            assert list(Constants(**kwargs).values()) == list(kwargs.values())
+
+    def test_items(self):
+        test_cases = [
+            {"a": 1},
+            {"a": 1, "b": 2},
+            {"a": "1", "b": 2},
+        ]
+        for kwargs in test_cases:
+            assert Constants(**kwargs).items() == kwargs.items()
