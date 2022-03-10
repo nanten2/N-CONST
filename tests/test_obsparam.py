@@ -99,15 +99,16 @@ example_toml_obsparams = {
 }
 
 
-def test_parser():
-    returned = obsparams.obsfile_parser("tests/horizon.obs")
+def test_obsfile_parser():
+    actual = obsparams.obsfile_parser("tests/horizon.obs")
     expected = horizontal_obsparams
-    assert returned == expected
+    assert actual == expected
 
 
-def test_OTFParams():
-    executed = obsparams.ObsParams.from_file("tests/example.obs.toml")  # noqa: F841
-    expected = example_toml_obsparams
-    for param, value in expected.items():
-        assert getattr(executed, param) == value
-        assert executed[param] == value
+class TestObsParams:
+    def test_from_file(self):
+        actual = obsparams.ObsParams.from_file("tests/example.obs.toml")
+        expected = example_toml_obsparams
+        for param, value in expected.items():
+            assert getattr(actual, param) == value
+            assert actual[param] == value
