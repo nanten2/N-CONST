@@ -5,7 +5,7 @@ description = "Parse and declare NANTEN2/NASCO specific constants/parameters."
 license = "MIT"
 readme = "README.md"
 authors = ["KaoruNishikawa <k.nishikawa@a.phys.nagoya-u.ac.jp>"]
-homepage = "https://github.com/nanten2/N-CONST"
+homepage = "https://nanten2.github.io/N-CONST"
 repository = "https://github.com/nanten2/N-CONST"
 
 [tool.poetry.dependencies]
