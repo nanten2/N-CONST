@@ -1,4 +1,4 @@
-__all__ = ["obsfile_parser"]
+__all__ = ["obsfile_parser", "ObsParams"]
 
 import importlib
 import os
@@ -10,7 +10,7 @@ from astropy.coordinates import Angle
 from astropy.units.quantity import Quantity
 from tomlkit.toml_file import TOMLFile
 
-from n_const import DataClass
+from .data_format import DataClass
 
 
 def obsfile_parser(path: os.PathLike) -> Dict[str, Any]:

@@ -1,4 +1,27 @@
-"""Parse pointing error parameters."""
+r"""Parse pointing error parameters.
+
+Pointing error is corrected by the following equation:
+
+.. math::
+
+    \Delta x =& \chi \sin ( \omega - Az ) \sin ( El ) \\
+    &+ \epsilon \sin ( El ) \\
+    &+ \chi_2 \sin ( 2 ( \omega_2 - Az ) ) \sin ( El ) \\
+    &+ \mathrm{d}Az \cos ( El ) \\
+    &+ \mathrm{d}e \\
+    &+ \mathrm{cor}_v \cos ( El + \mathrm{cor}_p ) \\
+    &+ \mathrm{d}e_\mathrm{radio} \\
+    \Delta Az =& \Delta x / \cos ( El ) \\
+    \Delta y =& - \chi \cos ( \omega - Az ) \\
+    &- \chi_2 \cos ( 2 ( \omega_2 - Az ) ) \\
+    &+ g_1 \cos ( El ) + g_2 \sin ( El ) \\
+    &+ \mathrm{d} el \\
+    &+ g_{ 1,\mathrm{radio} } \cos ( El ) + g_{ 2,\mathrm{radio} } \sin ( El ) \\
+    &- \mathrm{cor}_v \sin ( El + \mathrm{cor}_p ) \\
+    &+ \mathrm{d}el_\mathrm{radio} \\
+    \Delta El =& \Delta y
+
+"""
 
 __all__ = ["PointingError"]
 
@@ -13,7 +36,7 @@ except ImportError:
 import astropy.units as u
 from tomlkit.toml_file import TOMLFile
 
-from n_const import DataClass
+from .data_format import DataClass
 
 
 class PointingError(DataClass):
@@ -96,6 +119,8 @@ class PointingError(DataClass):
         ----------
         path
             Path to pointing error parameter file.
+        key
+            Table name in the TOML file.
 
         """
         params = TOMLFile(path).read()

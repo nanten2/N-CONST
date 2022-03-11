@@ -1,4 +1,4 @@
-from n_const import DataClass
+from n_const.data_format import DataClass
 
 
 class TestConstants:

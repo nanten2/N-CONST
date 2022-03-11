@@ -1,6 +1,5 @@
 import astropy.units as u
-
-from n_const import kisa
+from n_const.pointing import PointingError
 
 kisa_expected = {
     "dAz": 5314.2466754691195 * u.arcsec,
@@ -31,7 +30,7 @@ kisa_expected = {
 
 
 def test_RadioKisa():
-    executed = kisa.RadioKisa.from_file("tests/hosei_230.toml")  # noqa: F841
+    executed = PointingError.from_file("tests/hosei_230.toml")
     expected = kisa_expected
     for param, value in expected.items():
         assert getattr(executed, param) == value
