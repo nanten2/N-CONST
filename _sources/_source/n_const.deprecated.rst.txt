@@ -1,0 +1,7 @@
+n\_const.deprecated
+===================
+
+.. automodule:: n_const.deprecated
+   :members:
+   :undoc-members:
+   :show-inheritance:

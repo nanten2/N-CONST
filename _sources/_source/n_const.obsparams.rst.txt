@@ -1,0 +1,7 @@
+n\_const.obsparams
+==================
+
+.. automodule:: n_const.obsparams
+   :members:
+   :undoc-members:
+   :show-inheritance:

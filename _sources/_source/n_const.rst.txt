@@ -1,0 +1,41 @@
+
+
+
+n\_const
+========
+
+
+
+
+.. automodule:: n_const
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+
+
+
+
+Submodules
+----------
+
+.. autosummary::
+
+   n_const.constants
+   n_const.data_format
+   n_const.deprecated
+   n_const.obsparams
+   n_const.pointing
+
+.. toctree::
+   :maxdepth: 4
+   :titlesonly:
+   :hidden:
+
+   n_const.constants
+   n_const.data_format
+   n_const.deprecated
+   n_const.obsparams
+   n_const.pointing

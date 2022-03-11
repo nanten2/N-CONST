@@ -1,0 +1,7 @@
+n\_const.pointing
+=================
+
+.. automodule:: n_const.pointing
+   :members:
+   :undoc-members:
+   :show-inheritance:

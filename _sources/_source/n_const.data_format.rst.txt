@@ -1,0 +1,7 @@
+n\_const.data\_format
+=====================
+
+.. automodule:: n_const.data_format
+   :members:
+   :undoc-members:
+   :show-inheritance:
