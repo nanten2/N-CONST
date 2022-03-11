@@ -56,13 +56,13 @@ dict_items([('ch_num', 32768), ('bandwidth', <Quantity 2. GHz>)])
 
 ### Parameters
 
-*Kisa* parameter (parameters to correct pointing error) and observation parameters are extracted via `kisa` and `obsparam` modules respectively.
+Pointing error parameter (parameters to correct pointing error) and observation parameters are extracted via `pointing` and `obsparam` modules respectively.
 
-To get the *kisa* parameters:
+To get the pointing error parameters:
 
 ```python
->>> from n_const import kisa
->>> params = kisa.RadioKisa.from_file("path/to/kisafile")
+>>> from n_const.pointing import PointingError
+>>> params = PointingError.from_file("path/to/param_file")
 >>> params.dAz
 Quantity 5314.24667547 arcsec
 
@@ -76,7 +76,7 @@ To get the observation parameters:
 
 ```python
 >>> from n_const import obsparams
->>> params = obsparams.OTFParams.from_file("path/to/obsfile")
+>>> params = obsparams.OTFParams.from_file("path/to/obs_file")
 >>> params.Beta_on
 <Angle 15.51638889 deg>
 >>> params['Beta_on']
@@ -89,7 +89,7 @@ For conventional style obsfiles, this module provides a parser. This is a conven
 - Return values are not combined with units.
 
 ```python
->>> params = obsparams.obsfile_parser("path/to/obsfile")
+>>> params = obsparams.obsfile_parser("path/to/obs_file")
 >>> params['offset_Az']
 0
 ```
