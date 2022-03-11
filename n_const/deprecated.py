@@ -1,7 +1,9 @@
 """Deprecated items, kept for compatibility."""
 
 import os
+
 import n_const
+from .pointing import PointingError
 
 
 class Constants(n_const.DataClass):
@@ -76,3 +78,8 @@ class Constants(n_const.DataClass):
         #     for row in contents:
         #         contents_dict[row[fields[0]]] = cls.set_values(**row)
         # return cls.set_values(**contents_dict)
+
+
+Kisa = PointingError
+RadioKisa = Kisa
+OpticalKisa = Kisa

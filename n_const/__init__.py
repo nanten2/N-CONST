@@ -56,10 +56,14 @@ class DataClass(SimpleNamespace):
         return self.__dict__.items()
 
 
-from .constants import *
-
+# Modules
 from . import constants
-from . import kisa
+from . import pointing
 from . import obsparams
+
+# Aliases
+from .constants import *
+from .pointing import *
+from .obsparams import *
 
 from . import deprecated
