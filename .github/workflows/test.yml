@@ -15,10 +15,6 @@ jobs:
         python-version: [3.6, 3.7, 3.8, 3.9]
     steps:
       - uses: actions/checkout@v2
-      - name: Check environment
-        run: |
-          python -c "import markupsafe; print(markupsafe.__version__)"
-          python3 -c "import markupsafe; print(markupsafe.__version__)"
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
