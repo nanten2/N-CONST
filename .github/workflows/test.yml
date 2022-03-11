@@ -9,12 +9,15 @@ on:
 jobs:
   job:
     name: Test
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
     steps:
       - uses: actions/checkout@v2
+      - run: |
+        echo python -c "import markupsafe; print(markupsafe.__version__)"
+        echo python3 -c "import markupsafe; print(markupsafe.__version__)"
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
