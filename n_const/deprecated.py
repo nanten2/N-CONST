@@ -2,17 +2,23 @@
 
 import os
 
-import n_const
+from .data_format import DataClass
 from .pointing import PointingError
 
 
-class Constants(n_const.DataClass):
+class Constants(DataClass):
     """Fundamental class to declare arbitrary parameters.
 
     .. deprecated:: 1.0.1
 
         ``n_const.constants.Constants`` will be removed in N-CONST 2.0.0, it's replaced
-        by ``n_const.Constants`` because this module should be more like config file.
+        by ``n_const.data_format.Constants`` because this module should be more like
+        config file.
+
+    Parameters
+    ----------
+    kwargs
+        Any parameter(s) in ``name=value`` style.
 
     """
 
@@ -28,8 +34,8 @@ class Constants(n_const.DataClass):
 
         Parameters
         ----------
-        **kwargs: Any
-            Any parameter(s) in `name=value` style.
+        kwargs: Any
+            Any parameter(s) in ``name=value`` style.
 
         Examples
         --------
