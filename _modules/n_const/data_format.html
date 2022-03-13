@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>n_const.data_format &#8212; N-CONST 1.0.1 documentation</title>
+    <title>n_const.data_format &#8212; N-CONST 1.0.2 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -119,7 +119,7 @@
             <!-- Only show if we have sidebars configured, else just a small margin  -->
             <div class="col-12 col-md-3 bd-sidebar"><!DOCTYPE html>
 <!-- This will display the version of the docs -->
-<p style="text-align: center; font-family: Verdana, sans-serif;">v1.0.1</p><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+<p style="text-align: center; font-family: Verdana, sans-serif;">v1.0.2</p><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -148,7 +148,7 @@
   <h1>Source code for n_const.data_format</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">ItemsView</span><span class="p">,</span> <span class="n">KeysView</span><span class="p">,</span> <span class="n">ValuesView</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">SimpleNamespace</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Hashable</span>
 
 
 <div class="viewcode-block" id="DataClass"><a class="viewcode-back" href="../../_source/n_const.data_format.html#n_const.data_format.DataClass">[docs]</a><span class="k">class</span> <span class="nc">DataClass</span><span class="p">(</span><span class="n">SimpleNamespace</span><span class="p">):</span>
@@ -180,16 +180,27 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;namespace&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DataClass.keys"><a class="viewcode-back" href="../../_source/n_const.data_format.html#n_const.data_format.DataClass.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KeysView</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;``dict.keys()`` interface.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Equivalent to ``dict.keys()`` method.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataClass.values"><a class="viewcode-back" href="../../_source/n_const.data_format.html#n_const.data_format.DataClass.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValuesView</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;``dict.values()`` interface.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Equivalent to ``dict.values()`` method.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DataClass.items"><a class="viewcode-back" href="../../_source/n_const.data_format.html#n_const.data_format.DataClass.items">[docs]</a>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ItemsView</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;``dict.items()`` interface.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></div></div>
+        <span class="sd">&quot;&quot;&quot;Equivalent to ``dict.items()`` method.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DataClass.get"><a class="viewcode-back" href="../../_source/n_const.data_format.html#n_const.data_format.DataClass.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Equivalent to ``dict.get(key, default)`` method.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DataClass.pop"><a class="viewcode-back" href="../../_source/n_const.data_format.html#n_const.data_format.DataClass.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="ne">KeyError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Equivalent to ``dict.pop(key, default)`` method.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div></div>
 </pre></div>
 
               </div>
