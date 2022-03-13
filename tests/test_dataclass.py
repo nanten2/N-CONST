@@ -1,3 +1,4 @@
+import pytest
 from n_const.data_format import DataClass
 
 
@@ -50,3 +51,18 @@ class TestConstants:
         ]
         for kwargs in test_cases:
             assert DataClass(**kwargs).items() == kwargs.items()
+
+    def test_get(self):
+        example = DataClass(a=1, b=2)
+        assert example.get("a") == 1
+        assert example.get("b", 1) == 2
+        assert example.get("c") is None
+        assert example.get("c", 100) == 100
+
+    def test_pop(self):
+        example = DataClass(a=1, b=2)
+        assert example.pop("a") == 1
+        assert ["b"] == list(example.keys())
+        with pytest.raises(KeyError):
+            _ = example.pop("a")
+        assert example.pop("a", 100) == 100
