@@ -1,6 +1,6 @@
 from collections.abc import ItemsView, KeysView, ValuesView
 from types import SimpleNamespace
-from typing import Any
+from typing import Any, Hashable
 
 
 class DataClass(SimpleNamespace):
@@ -32,13 +32,24 @@ class DataClass(SimpleNamespace):
         return super().__repr__().replace("namespace", self.__class__.__name__)
 
     def keys(self) -> KeysView:
-        """``dict.keys()`` interface."""
+        """Equivalent to ``dict.keys()`` method."""
         return self.__dict__.keys()
 
     def values(self) -> ValuesView:
-        """``dict.values()`` interface."""
+        """Equivalent to ``dict.values()`` method."""
         return self.__dict__.values()
 
     def items(self) -> ItemsView:
-        """``dict.items()`` interface."""
+        """Equivalent to ``dict.items()`` method."""
         return self.__dict__.items()
+
+    def get(self, key: Hashable, default: Any = None) -> Any:
+        """Equivalent to ``dict.get(key, default)`` method."""
+        return self.__dict__.get(key, default)
+
+    def pop(self, key: Hashable, default: Any = KeyError) -> Any:
+        """Equivalent to ``dict.pop(key, default)`` method."""
+        if default is KeyError:
+            return self.__dict__.pop(key)
+        else:
+            return self.__dict__.pop(key, default)
