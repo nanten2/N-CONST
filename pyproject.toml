@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "N-CONST"
-version = "1.0.1"
+version = "1.0.2"
 description = "Necst Constants and ObservatioN Specification Translator."
 license = "MIT"
 readme = "README.md"
