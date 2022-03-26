@@ -1,11 +1,19 @@
 ---
 name: Release
-about: Things to check on release.
+about: Release check list.
 title: Release v
 labels: release
-assignees: KaoruNishikawa
+assignees: ''
 
 ---
 
-Reflect the version to the following files:
-- `pyproject.toml`
+Before the release, the followings should be fixed:
+
+- [ ] ...
+
+and the issue for the key feature should be closed:
+- [ ] ...
+
+Then,
+
+- [ ] Update the `version` in `pyproject.toml`
