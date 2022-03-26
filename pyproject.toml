@@ -10,7 +10,10 @@ repository = "https://github.com/nanten2/N-CONST"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-astropy = "^3.0"
+astropy = [
+    { version = "^5.0.3", python = ">=3.8" },
+    { version = "^3.0", python = "<3.8" }
+]
 numpy = "^1.19"
 dataclasses = { version = "^0.8", python = "~3.6" }
 typing-extensions = { version = ">=3.0, <5.0", python = "<3.9" }
@@ -30,3 +33,4 @@ sphinx = "^4.4"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
