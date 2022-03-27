@@ -11,8 +11,8 @@ repository = "https://github.com/nanten2/N-CONST"
 [tool.poetry.dependencies]
 python = "^3.6"
 astropy = [
-    { version = "^5.0.3", python = ">=3.8" },
-    { version = "^3.0", python = "<3.8" }
+    { version = "^3.0", python = "<3.8" },
+    { version = "^5.0.3", python = ">=3.8" }
 ]
 numpy = "^1.19"
 dataclasses = { version = "^0.8", python = "~3.6" }
