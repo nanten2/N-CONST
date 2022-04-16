@@ -9,7 +9,7 @@
    :maxdepth: 2
 
    Home <self>
-   API Documentation <_source/n_const>
+   API Reference <_source/n_const>
 
 .. mdinclude:: ../README.md
 

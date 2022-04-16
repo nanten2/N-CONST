@@ -9,7 +9,7 @@ homepage = "https://nanten2.github.io/N-CONST"
 repository = "https://github.com/nanten2/N-CONST"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = ">=3.6, <3.10"
 astropy = [
     { version = "^3.0", python = "<3.8" },
     { version = "^5.0.3", python = ">=3.8" }
