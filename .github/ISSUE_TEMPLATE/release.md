@@ -12,6 +12,7 @@ Before the release, the followings should be fixed:
 - [ ] ...
 
 and the issue for the key feature should be closed:
+
 - [ ] ...
 
 Then,
