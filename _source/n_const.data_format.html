@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>n_const.data_format &#8212; N-CONST 1.0.4 documentation</title>
+    <title>n_const.data_format &#8212; N-CONST 1.0.5 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -80,7 +80,7 @@
 
 <li class="toctree-l1 current active nav-item">
  <a class="reference internal nav-link" href="n_const.html">
-  API Documentation
+  API Reference
  </a>
 </li>
 
@@ -122,7 +122,7 @@
             <!-- Only show if we have sidebars configured, else just a small margin  -->
             <div class="col-12 col-md-3 bd-sidebar"><!DOCTYPE html>
 <!-- This will display the version of the docs -->
-<p style="text-align: center; font-family: Verdana, sans-serif;">v1.0.4</p><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+<p style="text-align: center; font-family: Verdana, sans-serif;">v1.0.5</p><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -196,6 +196,8 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleNamespace</span></code></p>
 <p>Storage of constant values.</p>
+<p>Both attribute access and dict-like key access are supported. Dict methods are
+almost fully supported except <code class="docutils literal notranslate"><span class="pre">[fromkeys|setdefault]</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>kwargs</strong> (<em>Any</em>) – Arbitrary number of parameters in <code class="docutils literal notranslate"><span class="pre">key=value</span></code> format.</p>
@@ -210,34 +212,23 @@
 </pre></div>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="n_const.data_format.DataClass.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.keys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.keys()</span></code> method.</p>
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.clear()</span></code> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>KeysView</em></p>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="n_const.data_format.DataClass.values">
-<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.values" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.values()</span></code> method.</p>
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.copy()</span></code> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>ValuesView</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="n_const.data_format.DataClass.items">
-<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.items" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.items()</span></code> method.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><em>ItemsView</em></p>
+<dd class="field-odd"><p><a class="reference internal" href="#n_const.data_format.DataClass" title="n_const.data_format.DataClass"><em>DataClass</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -260,6 +251,28 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.items()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>ItemsView</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.keys()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>KeysView</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="n_const.data_format.DataClass.pop">
 <span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'KeyError'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.pop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.pop(key,</span> <span class="pre">default)</span></code> method.</p>
@@ -272,6 +285,42 @@
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.popitem">
+<span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.popitem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.popitem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.popitem()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em>[<em>Hashable</em>, <em>Any</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.update()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#n_const.data_format.DataClass" title="n_const.data_format.DataClass"><em>DataClass</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="n_const.data_format.DataClass.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/n_const/data_format.html#DataClass.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#n_const.data_format.DataClass.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to <code class="docutils literal notranslate"><span class="pre">dict.values()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>ValuesView</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -320,7 +369,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
 </p>
     </div>
     
