@@ -6,21 +6,24 @@ import pytest
 
 
 project_root = Path(__file__).parent.parent.parent
-python_version = tuple(sys.version_info)[:2]
+PYTHON_VERSION = sys.version_info
+
+PKG_NAME = "n_const"
 
 
 @pytest.fixture(scope="module")
 def tmp_project_dir(tmp_path_factory) -> Path:
-    return tmp_path_factory.mktemp("n_const")
+    return tmp_path_factory.mktemp(PKG_NAME)
 
 
 @pytest.mark.skipif(
-    python_version < (3, 9),
+    PYTHON_VERSION < (3, 9),
+    PYTHON_VERSION >= (3, 10),
     reason="No need to support that wide versions for documentation building",
 )
 def test_create_stub(tmp_project_dir: Path):
     _ = subprocess.run(
-        ["cp", "-rv", ".", str(tmp_project_dir)],
+        ["cp", "-r", ".", str(tmp_project_dir)],
         cwd=project_root,
     )
     assert (tmp_project_dir / "docs" / "conf.py").exists()
@@ -35,7 +38,7 @@ def test_create_stub(tmp_project_dir: Path):
             f"{str(tmp_project_dir)}/docs/_templates/apidoc",
             "-o",
             f"{str(tmp_project_dir)}/docs/_source",
-            "neclib",
+            PKG_NAME,
         ],
         capture_output=True,
     )
@@ -44,7 +47,8 @@ def test_create_stub(tmp_project_dir: Path):
 
 
 @pytest.mark.skipif(
-    python_version < (3, 9),
+    PYTHON_VERSION < (3, 9),
+    PYTHON_VERSION >= (3, 10),
     reason="No need to support that wide versions for documentation building",
 )
 def test_build(tmp_project_dir: Path):
